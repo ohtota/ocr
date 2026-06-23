@@ -24,7 +24,9 @@
       async function startCamera() {
         const status = document.getElementById("status");
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true});
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "environment"} // アウトカメラを指定
+          });
           document.getElementById("camera").srcObject = stream;
           status.textContent = "カメラ起動成功😄";
         } catch (err) {
