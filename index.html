@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja-JP">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>OCR</title>
+    <!--
+    <link rel="icon" href="favicon.ico">
+    <style></style>
+    <script></script>
+    -->
+  </head>
+  <body>
+    <h1>■OCR Web App</h1>
+    <video id="camera" autoplay muted playsinline width="300"></video>
+    <p id="status">カメラ起動中。。。</p>
+    <!--
+    <button id="send">読み取り</button>
+    -->
+    <script>
+      // document.getElementById("send").onclick = captureAndSend;
+      startCamera();
+
+      async function startCamera() {
+        const status = document.getElementById("status");
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true});
+          document.getElementById("camera").srcObject = stream;
+          status.textContent = "カメラ起動成功😄";
+        } catch (err) {
+          console.error("カメラエラー：", err.name, err.message);
+          status.textContent = "エラー😭： " + err.name + " - " + err.message;
+        }
+      }
+    </script>  
+  </body>
+</html>
