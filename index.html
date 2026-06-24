@@ -77,7 +77,7 @@
         const video = $("#camera");
         const canvas = document.createElement("canvas");
         canvas.width = video.videoWidth;
-        canvas.height = video.videoWidth;
+        canvas.height = video.videoHeight;
         canvas.getContext("2d").drawImage(video, 0, 0);
         const blob = await new Promise(
           resolve => canvas.toBlob(resolve, "image/jpeg")
