@@ -49,7 +49,11 @@
           currentStream.getTracks().forEach(track => track.stop());
         }
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { deviceId: { exact: deviceId} }
+          video: { 
+            deviceId: { exact: deviceId},
+            width: {ideal: 1920 },
+            height: {ideal: 1080 },
+          }
         });
         $("#camera").srcObject = stream;
         currentStream = stream;
