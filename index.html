@@ -17,8 +17,10 @@
     <button id="send">読み取り</button>
     <p id="status">カメラ起動中。。。</p>
     <script>
+      // const $ = (id) => document.getElementById(id);
+      const $ = (selector) => document.querySelector(selector);
       let currentStream = null;
-      document.getElementById("send").onclick = captureAndSend;
+      $("#send").onclick = captureAndSend;
       // startCamera();
       init();
 
@@ -26,14 +28,14 @@
         try {
           await navigator.mediaDevices.getUserMedia({ video: true});
         } catch (err) {
-          status.textContent = "エラー😭： " + err.name + " - " + err.message;
+          $("#status").textContent = "エラー😭： " + err.name + " - " + err.message;
           return
         }
         const devices = await navigator.mediaDevices.enumerateDevices();
         const videoDevices = devices.filter(device => device.kind === "videoinput");
-        const select = document.getElementById("cameraSelect");
+        const select = $("#cameraSelect");
         videoDevices.forEach((device, i) => {
-          const optin = document.createElement("option");
+          const optin = $("#option");
           optin.value = device.deviceId;
           optin.text = device.label || `カメラ ${i + 1}`;
           select.appendChild(optin);
@@ -49,7 +51,7 @@
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { deviceId: { exact: deviceId} }
         });
-        document.getElementById("camera").srcObject = stream;
+        $("#camera").srcObject = stream;
         currentStream = stream;
 
         /*
@@ -68,8 +70,8 @@
       }
 
       async function captureAndSend() {
-        const video = document.getElementById("camera");
-        const canvas = document.createElement("canvas");
+        const video = $("#camera");
+        const canvas = $("#canvas");
         canvas.width = video.videoWidth;
         canvas.height = video.videoWidth;
         canvas.getContext("2d").drawImage(video, 0, 0);
