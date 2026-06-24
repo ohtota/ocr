@@ -23,7 +23,12 @@
       init();
 
       async function init() {
-        await navigator.mediaDevices.getUserMedia({ video: true});
+        try {
+          await navigator.mediaDevices.getUserMedia({ video: true});
+        } catch (err) {
+          status.textContent = "エラー😭： " + err.name + " - " + err.message;
+          return
+        }
         const devices = await navigator.mediaDevices.enumerateDevices();
         const videoDevices = devices.filter(device => device.kind === "videoinput");
         const select = document.getElementById("cameraSelect");
