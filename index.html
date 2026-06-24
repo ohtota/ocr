@@ -12,9 +12,16 @@
   </head>
   <body>
     <h1>■OCR Web App</h1>
-    <select id="cameraSelect"></select>
-    <video id="camera" autoplay muted playsinline width="300"></video>
-    <button id="send">読み取り</button>
+    <div>
+      カメラの選択：
+      <select id="cameraSelect"></select>
+    </div>
+    <div>
+      <video id="camera" autoplay muted playsinline width="320"></video>
+    </div>
+    <div>
+      <button id="send">読み取り</button>
+    </div>
     <p id="status">カメラ起動中。。。</p>
     <script>
       // const $ = (id) => document.getElementById(id);
@@ -48,15 +55,20 @@
         if (currentStream) {
           currentStream.getTracks().forEach(track => track.stop());
         }
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { 
-            deviceId: { exact: deviceId},
-            width: {ideal: 1920 },
-            height: {ideal: 1080 },
-          }
-        });
-        $("#camera").srcObject = stream;
-        currentStream = stream;
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { 
+              deviceId: { exact: deviceId},
+              width: {ideal: 1920 },
+              height: {ideal: 1080 },
+            }
+          });
+          $("#camera").srcObject = stream;
+          currentStream = stream;
+          $("#status").textContent = "カメラ起動成功😄";
+        } catch (err) {
+          status.textContent = "エラー😭： " + err.name + " - " + err.message;
+        }
 
         /*
         const status = document.getElementById("status");
