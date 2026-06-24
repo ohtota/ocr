@@ -12,12 +12,54 @@
   </head>
   <body>
     <h1>■OCR Web App</h1>
+    <select id="cameraSelect"></select>
     <video id="camera" autoplay muted playsinline width="300"></video>
     <button id="send">読み取り</button>
     <p id="status">カメラ起動中。。。</p>
     <script>
+      let currentStream = null;
       document.getElementById("send").onclick = captureAndSend;
       startCamera();
+
+      async function init() {
+        await navigator.mediaDevices.getUserMedia({ video: true});
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevice = devices.filter(device => device.kind === "videoInput");
+        const select = document.getElementById("cameraSelect");
+        videoDevice.forEach((device, i) => {
+          const optin = document.createElement("option");
+          optin.value = device.deviceId;
+          optin.text = device.label || `カメラ ${i + 1}`;
+          select.appendChild(optin);
+        });
+        startCamera(videoDevice[0].deviceId); // 初期起動
+        select.onchange = () => startCamera(select.value);
+      }
+
+      async function startCamera(deviceId) {
+        if (currentStream) {
+          currentStream.getTracks().forEach(track => track.stop());
+        }
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { deviceId: { exact: deviceId} }
+        });
+        document.getElementById("camera").srcObject = stream;
+        currentStream = stream;
+
+        /*
+        const status = document.getElementById("status");
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "environment"} // アウトカメラを指定
+          });
+          document.getElementById("camera").srcObject = stream;
+          status.textContent = "カメラ起動成功😄";
+        } catch (err) {
+          console.error("カメラエラー：", err.name, err.message);
+          status.textContent = "エラー😭： " + err.name + " - " + err.message;
+        }
+        */
+      }
 
       async function captureAndSend() {
         const video = document.getElementById("camera");
@@ -36,20 +78,6 @@
         });
         const data = await res.json();
         alert(data);
-      }
-
-      async function startCamera() {
-        const status = document.getElementById("status");
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: "environment"} // アウトカメラを指定
-          });
-          document.getElementById("camera").srcObject = stream;
-          status.textContent = "カメラ起動成功😄";
-        } catch (err) {
-          console.error("カメラエラー：", err.name, err.message);
-          status.textContent = "エラー😭： " + err.name + " - " + err.message;
-        }
       }
     </script>  
   </body>
