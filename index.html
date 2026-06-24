@@ -25,15 +25,15 @@
       async function init() {
         await navigator.mediaDevices.getUserMedia({ video: true});
         const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevice = devices.filter(device => device.kind === "videoInput");
+        const videoDevices = devices.filter(device => device.kind === "videoinput");
         const select = document.getElementById("cameraSelect");
-        videoDevice.forEach((device, i) => {
+        videoDevices.forEach((device, i) => {
           const optin = document.createElement("option");
           optin.value = device.deviceId;
           optin.text = device.label || `カメラ ${i + 1}`;
           select.appendChild(optin);
         });
-        startCamera(videoDevice[0].deviceId); // 初期起動
+        startCamera(videoDevices[0].deviceId); // 初期起動
         select.onchange = () => startCamera(select.value);
       }
 
