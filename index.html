@@ -19,7 +19,8 @@
     <script>
       let currentStream = null;
       document.getElementById("send").onclick = captureAndSend;
-      startCamera();
+      // startCamera();
+      init();
 
       async function init() {
         await navigator.mediaDevices.getUserMedia({ video: true});
