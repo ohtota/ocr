@@ -35,7 +35,7 @@
         const videoDevices = devices.filter(device => device.kind === "videoinput");
         const select = $("#cameraSelect");
         videoDevices.forEach((device, i) => {
-          const optin = $("#option");
+          const optin = document.createElement("#option");
           optin.value = device.deviceId;
           optin.text = device.label || `カメラ ${i + 1}`;
           select.appendChild(optin);
