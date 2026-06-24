@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>OCR</title>
+    <title>OCR Web App</title>
     <!--
     <link rel="icon" href="favicon.ico">
     <style></style>
@@ -11,15 +11,32 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App（自動デプロイの確認）</h1>
+    <h1>■OCR Web App</h1>
     <video id="camera" autoplay muted playsinline width="300"></video>
-    <p id="status">カメラ起動中。。。</p>
-    <!--
     <button id="send">読み取り</button>
-    -->
+    <p id="status">カメラ起動中。。。</p>
     <script>
-      // document.getElementById("send").onclick = captureAndSend;
+      document.getElementById("send").onclick = captureAndSend;
       startCamera();
+
+      async function captureAndSend() {
+        const video = document.getElementById("camera");
+        const canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoWidth;
+        canvas.getContext("2d").drawImage(video, 0, 0);
+        const blob = await new Promise(
+          resolve => canvas.toBlob(resolve, "image/jpeg")
+        );
+        const formData = new FormData();
+        formData.append("file", blob, "capture.jpg");
+        const res = await fetch("https://sample-api.ohtota.workers.dev/file", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        alert(data);
+      }
 
       async function startCamera() {
         const status = document.getElementById("status");
