@@ -88,7 +88,7 @@
           method: "POST",
           body: formData,
         });
-        const data = await res.json();
+        const data = await res.text();
         alert(data);
       }
     </script>  
