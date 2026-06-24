@@ -67,7 +67,7 @@
           currentStream = stream;
           $("#status").textContent = "カメラ起動成功😄";
         } catch (err) {
-          status.textContent = "エラー😭： " + err.name + " - " + err.message;
+          $("#status").textContent = "エラー😭： " + err.name + " - " + err.message;
         }
 
         /*
@@ -101,7 +101,8 @@
           body: formData,
         });
         const data = await res.text();
-        alert(data);
+        $("#status").textContent = data;
+        // alert(data);
       }
     </script>  
   </body>
