@@ -75,7 +75,7 @@
 
       async function captureAndSend() {
         const video = $("#camera");
-        const canvas = $("#canvas");
+        const canvas = document.createElement("canvas");
         canvas.width = video.videoWidth;
         canvas.height = video.videoWidth;
         canvas.getContext("2d").drawImage(video, 0, 0);
