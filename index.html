@@ -33,6 +33,18 @@
 
       async function init() {
         try {
+          const initialStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              width: {ideal: 1920 },
+              height: {ideal: 1080 },
+            }
+          });
+          initialStream.getTracks().forEach(track => track.stop());
+        } catch (err) {
+          $("#status").textContent = "エラー😭： " + err.name + " - " + err.message;
+          return
+        }
+        try {
           // await navigator.mediaDevices.getUserMedia({ video: true});
           const devices = await navigator.mediaDevices.enumerateDevices();
           const videoDevices = devices.filter(device => device.kind === "videoinput");
@@ -47,7 +59,6 @@
           select.onchange = () => startCamera(select.value);
         } catch (err) {
           $("#status").textContent = "エラー😭： " + err.name + " - " + err.message;
-          return
         }
       }
 
