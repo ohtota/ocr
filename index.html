@@ -59,8 +59,8 @@
           const stream = await navigator.mediaDevices.getUserMedia({
             video: { 
               deviceId: { exact: deviceId },
-              width: {ideal: 1920 },
-              height: {ideal: 1080 },
+              width: {min: 1920 },
+              height: {min: 1080 },
             }
           });
           $("#camera").srcObject = stream;
