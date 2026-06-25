@@ -58,16 +58,19 @@
         try {
           const stream = await navigator.mediaDevices.getUserMedia({
             video: { 
-              deviceId: { exact: deviceId},
+              deviceId: { exact: deviceId },
               width: {ideal: 1920 },
               height: {ideal: 1080 },
             }
           });
           $("#camera").srcObject = stream;
           currentStream = stream;
-          $("#status").textContent = "カメラ起動成功😄";
+          const videoTrack = stream.getVideoTracks()[0];
+          const settings = videoTrack.getSettings();
+
+          $("#status").textContent = `カメラ起動成功😄： ${settings.width}x${settings.height}px`;
         } catch (err) {
-          $("#status").textContent = "エラー😭： " + err.name + " - " + err.message;
+          $("#status").textContent = `エラー😭： ${err.name} - ${err.message}`;
         }
 
         /*
