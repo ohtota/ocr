@@ -33,22 +33,22 @@
 
       async function init() {
         try {
-          await navigator.mediaDevices.getUserMedia({ video: true});
+          // await navigator.mediaDevices.getUserMedia({ video: true});
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const videoDevices = devices.filter(device => device.kind === "videoinput");
+          const select = $("#cameraSelect");
+          videoDevices.forEach((device, i) => {
+            const optin = document.createElement("option");
+            optin.value = device.deviceId;
+            optin.text = device.label || `カメラ ${i + 1}`;
+            select.appendChild(optin);
+          });
+          await startCamera(videoDevices[0].deviceId); // 初期起動
+          select.onchange = () => startCamera(select.value);
         } catch (err) {
           $("#status").textContent = "エラー😭： " + err.name + " - " + err.message;
           return
         }
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = devices.filter(device => device.kind === "videoinput");
-        const select = $("#cameraSelect");
-        videoDevices.forEach((device, i) => {
-          const optin = document.createElement("option");
-          optin.value = device.deviceId;
-          optin.text = device.label || `カメラ ${i + 1}`;
-          select.appendChild(optin);
-        });
-        startCamera(videoDevices[0].deviceId); // 初期起動
-        select.onchange = () => startCamera(select.value);
       }
 
       async function startCamera(deviceId) {
