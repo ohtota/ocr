@@ -26,6 +26,8 @@
     <script>
       // const $ = (id) => document.getElementById(id);
       const $ = (selector) => document.querySelector(selector);
+      const videoWidth = 842;
+      const videoHeight = 1191;
       let currentStream = null;
       $("#send").onclick = captureAndSend;
       // startCamera();
@@ -35,8 +37,8 @@
         try {
           const initialStream = await navigator.mediaDevices.getUserMedia({
             video: {
-              width: {ideal: 1920 },
-              height: {ideal: 1080 },
+              width: {ideal: videoWidth },
+              height: {ideal: videoHeight },
             }
           });
           initialStream.getTracks().forEach(track => track.stop());
@@ -70,8 +72,8 @@
           const stream = await navigator.mediaDevices.getUserMedia({
             video: { 
               deviceId: { exact: deviceId },
-              width: {ideal: 1920 },
-              height: {ideal: 1080 },
+              width: {ideal: videoWidth },
+              height: {ideal: videoHeight },
             }
           });
           $("#camera").srcObject = stream;
