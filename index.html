@@ -11,7 +11,7 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-06-29 17:20)</h1>
+    <h1>■OCR Web App(2026-06-30 15:38)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
@@ -85,9 +85,11 @@
           currentStream = stream;
           const videoTrack = stream.getVideoTracks()[0];
           const settings = videoTrack.getSettings();
-          const myname = context.env.MY_NAME;
 
-          $("#status").textContent = `${myname} カメラ起動成功😄： ${settings.width}x${settings.height}px`;
+          const res = await fetch("https://my-hono-app.ohtota.workers.dev");
+          const name = await res.text();
+
+          $("#status").textContent = `${name} カメラ起動成功😄： ${settings.width}x${settings.height}px`;
         } catch (err) {
           $("#status").textContent = `エラー😭： ${err.name} - ${err.message}`;
         }
