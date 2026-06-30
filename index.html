@@ -86,8 +86,14 @@
           const videoTrack = stream.getVideoTracks()[0];
           const settings = videoTrack.getSettings();
 
-          const res = await fetch("https://my-hono-app.ohtota.workers.dev");
-          const name = await res.text();
+          let res;
+          let name = "";
+          res = await fetch("https://my-hono-app.ohtota.workers.dev");
+          name += await res.text();
+          res = await fetch("https://my-hono-app.ohtota.workers.dev/plain");
+          name += await res.text();
+          res = await fetch("https://my-hono-app.ohtota.workers.dev/secret");
+          name += await res.text();
 
           $("#status").textContent = `${name} カメラ起動成功😄： ${settings.width}x${settings.height}px`;
         } catch (err) {
