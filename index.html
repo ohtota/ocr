@@ -11,7 +11,7 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-07-02 16:17)</h1>
+    <h1>■OCR Web App(2026-07-02 16:28)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
@@ -120,7 +120,7 @@
         );
         const formData = new FormData();
         formData.append("file", blob, "capture.jpg");
-        const res = await fetch(" https://base64.ohtota.workers.dev/ocr", {
+        const res = await fetch("https://base64.ohtota.workers.dev/ocr", {
         // const res = await fetch("https://sample-api.ohtota.workers.dev/file", {
           method: "POST",
           body: formData,
