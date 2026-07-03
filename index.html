@@ -22,7 +22,7 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-07-03 13:34)</h1>
+    <h1>■OCR Web App(2026-07-03 13:40)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
@@ -134,7 +134,7 @@
           body: formData,
         });
         $("#status").innerHTML = ''
-        const json = await response.json();
+        const json = await res.json();
         $("#result").textContent = json.output[0].content[0].text;
         // alert(data);
       }
