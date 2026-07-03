@@ -19,6 +19,11 @@
         /* margin-left: auto; */
         /* margin-right: auto; */
       }
+      .video {
+        aspect-ratio: 3 / 4;
+        width: 100%;
+        height: auto;
+      }
     </style>
     <!--
     <link rel="icon" href="favicon.ico">
@@ -27,13 +32,16 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-07-03 14:39)</h1>
+    <h1>■OCR Web App(2026-07-03 16:44)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
     </div>
     <div class="center">
+      <!--
       <video id="camera" autoplay muted playsinline width="360" height="480"></video>
+      -->
+      <video id="camera" autoplay muted playsinline></video>
     </div>
     <div>
       <button id="send">読み取り</button>
