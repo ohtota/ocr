@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>OCR Web App</title>
     <style>
-        @keyframes blink-animation {
-          0% { opacity: 1; }
-          50% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-        .blink {
-          color: #F00;
-          animation: blink-animation 1s infinite;
-        }
+      @keyframes blink-animation {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+      .blink {
+        color: #F00;
+        animation: blink-animation 1s infinite;
+      }
+      .center {
+        margin-left: auto;
+        margin-right: auto;
+      }
     </style>
     <!--
     <link rel="icon" href="favicon.ico">
@@ -22,12 +26,12 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-07-03 13:40)</h1>
+    <h1>■OCR Web App(2026-07-03 14:39)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
     </div>
-    <div>
+    <div class="center">
       <video id="camera" autoplay muted playsinline width="320"></video>
     </div>
     <div>
