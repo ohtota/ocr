@@ -37,7 +37,7 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-07-03 17:05)</h1>
+    <h1>■OCR Web App(2026-07-03 17:12)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
@@ -60,8 +60,8 @@
       const $ = (selector) => document.querySelector(selector);
       // const videoWidth = 842;   // 842x1191: A版用紙縦
       // const videoHeight = 1191;
-      const videoWidth = 840;
-      const videoHeight = 1120;
+      const videoWidth = 1120;
+      const videoHeight = 840;
       let currentStream = null;
       $("#send").onclick = captureAndSend;
       // $("#send").onclick = ocr;
