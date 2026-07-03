@@ -15,8 +15,9 @@
         animation: blink-animation 1s infinite;
       }
       .center {
-        margin-left: auto;
-        margin-right: auto;
+        text-align: center;
+        /* margin-left: auto; */
+        /* margin-right: auto; */
       }
     </style>
     <!--
@@ -32,7 +33,7 @@
       <select id="cameraSelect"></select>
     </div>
     <div class="center">
-      <video id="camera" autoplay muted playsinline width="320"></video>
+      <video id="camera" autoplay muted playsinline width="360" height="480"></video>
     </div>
     <div>
       <button id="send">読み取り</button>
