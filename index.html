@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>OCR Web App</title>
+    <style>
+        @keyframes blink-animation {
+          0% { opacity: 1; }
+          50% { opacity: 0; }
+          100% { opacity: 1; }
+        }
+        .blink {
+          color: #F00;
+          animation: blink-animation 1s infinite;
+        }
+    </style>
     <!--
     <link rel="icon" href="favicon.ico">
     <style></style>
@@ -11,7 +22,7 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-07-02 16:28)</h1>
+    <h1>■OCR Web App(2026-07-03 13:30)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
@@ -22,7 +33,7 @@
     <div>
       <button id="send">読み取り</button>
     </div>
-    <p id="status">カメラ起動中。。。</p>
+    <div id="status">カメラ起動中。。。</div>
     <pre id="result"></pre>
 
     <script>
@@ -85,11 +96,7 @@
           currentStream = stream;
           const videoTrack = stream.getVideoTracks()[0];
           const settings = videoTrack.getSettings();
-
-        const res = await fetch("https://my-hono-app.ohtota.workers.dev/key");
-        const key = await res.text();
-
-          $("#status").textContent = `${key} カメラ起動成功😄： ${settings.width}x${settings.height}px`;
+          $("#status").textContent = `カメラ起動成功😄： ${settings.width}x${settings.height}px`;
         } catch (err) {
           $("#status").textContent = `エラー😭： ${err.name} - ${err.message}`;
         }
@@ -120,13 +127,15 @@
         );
         const formData = new FormData();
         formData.append("file", blob, "capture.jpg");
+        $("#status").innerHTML = '<p class="blink">認識中。。。</p>'
         const res = await fetch("https://base64.ohtota.workers.dev/ocr", {
         // const res = await fetch("https://sample-api.ohtota.workers.dev/file", {
           method: "POST",
           body: formData,
         });
         const data = await res.text();
-        $("#status").textContent = data;
+        $("#status").innerHTML = ''
+        $("#result").textContent = json.output[0].content[0].text;
         // alert(data);
       }
 
