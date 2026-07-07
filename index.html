@@ -46,7 +46,7 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-07-07 16:26)</h1>
+    <h1>■OCR Web App(2026-07-07 16:34)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
@@ -75,7 +75,8 @@
       $("#send").onclick = captureAndSend;
       // $("#send").onclick = ocr;
       // startCamera();
-      $("#camera").onchange = chgoOrientation;
+      const mediaQuery = window.matchMedia("(orientation: portrait)")
+      mediaQuery.onchange = chgoOrientation;
       init();
 
       async function init() {
