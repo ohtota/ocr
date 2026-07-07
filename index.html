@@ -22,7 +22,9 @@
       }
       .video {
         aspect-ratio: 3 / 4;
-        width: 100%;
+        /* width: 100%; */
+        width: 90vmin;
+        max-width: 100%;
         height: auto;
       }
       .result {
@@ -40,7 +42,7 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-07-03 17:24)</h1>
+    <h1>■OCR Web App(2026-07-07 12:27)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
@@ -161,6 +163,7 @@
         // alert(data);
       }
 
+      /*--------------------------------------------------------------------
       async function ocr() {
         const video = $("#camera");
         const canvas = document.createElement("canvas");
@@ -211,6 +214,7 @@
 
         $("#result").textContent = json.output[0].content[0].text;
       }
+      --------------------------------------------------------------------*/
 
       function fileToBase64(file) {
         return new Promise((resolve, reject) => {
