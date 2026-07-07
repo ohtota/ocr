@@ -21,8 +21,10 @@
         /* margin-right: auto; */
       }
       .video {
+        --aspect-ratio: 3/4;
+        aspect-ratio: var(--aspect-ratio);
         /* aspect-ratio: 3 / 4; */
-        aspect-ratio: 4 / 3;
+        /* aspect-ratio: 4 / 3; */
         /* width: 100%; */
         width: 90vmin;
         max-width: 100%;
@@ -44,7 +46,7 @@
     -->
   </head>
   <body>
-    <h1>■OCR Web App(2026-07-07 14:47)</h1>
+    <h1>■OCR Web App(2026-07-07 16:26)</h1>
     <div>
       カメラの選択：
       <select id="cameraSelect"></select>
@@ -73,14 +75,15 @@
       $("#send").onclick = captureAndSend;
       // $("#send").onclick = ocr;
       // startCamera();
+      $("#camera").onchange = chgoOrientation;
       init();
 
       async function init() {
         try {
           const initialStream = await navigator.mediaDevices.getUserMedia({
             video: {
-              width: {ideal: videoWidth },
-              height: {ideal: videoHeight },
+              width: { ideal: videoWidth },
+              height: { ideal: videoHeight },
             }
           });
           initialStream.getTracks().forEach(track => track.stop());
@@ -141,6 +144,18 @@
         }
         */
       }
+
+      function chgoOrientation(e) {
+        if (e.matches) {
+          // 縦向き
+          alert("縦向き");
+          $("#camera").style.setProperty("--aspect-ratio", "3/4")
+        } else {
+          // 横向き
+          alert("横向き");
+          $("#camera").style.setProperty("--aspect-ratio", "4/3")
+        }
+      } 
 
       async function captureAndSend() {
         const video = $("#camera");
